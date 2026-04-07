@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Football Player Showcase</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav style="display:flex; justify-content:space-between; padding:15px;">
+        <h2>⚽ PlayerShowcase</h2>
+        <div>
+            <a href="/players">Players</a>
+            <a href="/register">Register</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="position:relative; height:85vh; display:flex; align-items:center; justify-content:center;">
+    <!-- Background Image -->
+    <img src="{{ url_for('static', filename='hero-bg.jpg') }}"
+         style="position:absolute; width:100%; height:100%; object-fit:cover; z-index:0;">
+
+    <!-- Overlay (lighter + gradient effect) -->
+    <div style="position:absolute; width:100%; height:100%;
+                background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3));
+                z-index:1;">
+    </div>
+
+    <!-- Content -->
+    <div class="hero-box" style="position:relative; z-index:2;">
+
+        <h1 style="font-size:48px; font-weight:bold; margin-bottom:15px;">
+            Football Player Showcase
+        </h1>
+
+        <p style="margin-bottom:20px;">
+            Connect players with opportunities. Get discovered by scouts worldwide.
+        </p>
+
+        <a href="/register" class="hero-btn">Register as Player</a>
+
+    </div>
+
+    </section>
+
+    <!-- How It Works -->
+    <section style="text-align:center; padding:50px;">
+        <h2>How It Works</h2>
+
+        <div style="display:flex; justify-content:center; gap:20px; margin-top:30px;">
+
+            <div style="border:1px solid #ddd; padding:20px; border-radius:10px;">
+                <h3>📝 Register</h3>
+                <p>Create your player profile with details and videos.</p>
+            </div>
+
+            <div style="border:1px solid #ddd; padding:20px; border-radius:10px;">
+                <h3>🔍 Get Discovered</h3>
+                <p>Scouts browse profiles to find talent.</p>
+            </div>
+
+            <div style="border:1px solid #ddd; padding:20px; border-radius:10px;">
+                <h3>🤝 Connect</h3>
+                <p>Connect with clubs and opportunities.</p>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+</html>
