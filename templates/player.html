@@ -1,29 +1,222 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Player Profile</title>
+    <title>{{ player[1] }} — PlayerShowcase</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="profile-page">
 
-<div class="form-container">
+    <!-- FIFA-STYLE LAYERED BACKGROUND -->
+    <div class="profile-bg">
+        <!-- Base gradient -->
+        <div class="bg-gradient-sweep"></div>
 
-    <div class="form-box">
-        <h2>{{ player[1] }}</h2>
+        <!-- Pitch lines -->
+        <svg class="profile-pitch-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="900" cy="400" r="260" fill="none" stroke="rgba(0,230,118,0.06)" stroke-width="2"/>
+            <circle cx="900" cy="400" r="140" fill="none" stroke="rgba(0,230,118,0.05)" stroke-width="2"/>
+            <circle cx="900" cy="400" r="5" fill="rgba(0,230,118,0.15)"/>
+            <line x1="900" y1="0" x2="900" y2="800" stroke="rgba(0,230,118,0.04)" stroke-width="1.5"/>
+        </svg>
 
-        <p><strong>Age:</strong> {{ player[2] }}</p>
-        <p><strong>Position:</strong> {{ player[3] }}</p>
-        <p><strong>Contact:</strong> {{ player[4] }}</p>
-
-        {% if player[5] %}
-        <a href="{{ player[5] }}" target="_blank" class="hero-btn">
-            Watch Video
-        </a>
-        {% endif %}
-
+        <!-- Animated light beams -->
+        <div class="light-beam lb1"></div>
+        <div class="light-beam lb2"></div>
+        <div class="light-beam lb3"></div>
     </div>
 
-</div>
+    <!-- Particles -->
+    <div class="particles">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span>
+    </div>
 
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/" class="nav-brand-link">
+                <span class="ball-icon">⚽</span>
+                <span class="brand-text">Player<strong>Showcase</strong></span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="/players" class="nav-btn">← All Players</a>
+            <a href="/register" class="nav-btn nav-btn-accent">Register</a>
+        </div>
+    </nav>
+
+    <!-- MAIN PROFILE LAYOUT: left = player art, right = card -->
+    <main class="profile-main">
+
+        <!-- LEFT: Animated Player Figure -->
+        <div class="profile-player-side" id="playerSide">
+
+            <!-- Big glowing ring behind figure -->
+            <div class="player-glow-ring" id="glowRing"></div>
+
+            <!-- Player silhouette / image -->
+            <div class="player-figure-wrap" id="playerFigure">
+                <img src="{{ url_for('static', filename='player.png') }}"
+                     class="profile-figure-img"
+                     alt="{{ player[1] }}"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="profile-figure-fallback">
+                    <div class="fallback-silhouette">
+                        <!-- SVG footballer silhouette -->
+                        <svg viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Head -->
+                            <circle cx="100" cy="45" r="32" fill="rgba(0,230,118,0.15)" stroke="rgba(0,230,118,0.4)" stroke-width="2"/>
+                            <!-- Body -->
+                            <path d="M60 130 Q100 110 140 130 L155 230 Q100 255 45 230 Z" fill="rgba(0,230,118,0.12)" stroke="rgba(0,230,118,0.35)" stroke-width="2"/>
+                            <!-- Left arm -->
+                            <path d="M60 135 Q30 175 25 215" stroke="rgba(0,230,118,0.35)" stroke-width="14" stroke-linecap="round"/>
+                            <!-- Right arm / kicking motion -->
+                            <path d="M140 135 Q170 165 185 195" stroke="rgba(0,230,118,0.35)" stroke-width="14" stroke-linecap="round"/>
+                            <!-- Left leg -->
+                            <path d="M75 228 Q65 290 55 345" stroke="rgba(0,230,118,0.35)" stroke-width="16" stroke-linecap="round"/>
+                            <!-- Right leg — kicking -->
+                            <path d="M125 228 Q145 270 175 295" stroke="rgba(0,230,118,0.35)" stroke-width="16" stroke-linecap="round"/>
+                            <!-- Boot left -->
+                            <ellipse cx="50" cy="352" rx="22" ry="10" fill="rgba(0,230,118,0.3)" stroke="rgba(0,230,118,0.5)" stroke-width="1.5"/>
+                            <!-- Boot right (kick direction) -->
+                            <ellipse cx="185" cy="300" rx="22" ry="10" fill="rgba(0,230,118,0.3)" stroke="rgba(0,230,118,0.5)" stroke-width="1.5" transform="rotate(-30 185 300)"/>
+                        </svg>
+                        <div class="figure-initial">{{ player[1][0] }}</div>
+                    </div>
+                </div>
+                <!-- Shadow beneath player -->
+                <div class="player-shadow"></div>
+            </div>
+
+            <!-- Player position tag floating on left -->
+            <div class="floating-position-tag" id="posTag">{{ player[3] }}</div>
+
+            <!-- Big name watermark -->
+            <div class="profile-bg-name" id="bgName">
+                {{ player[1].upper().split()[0] if ' ' in player[1] else player[1].upper() }}
+            </div>
+        </div>
+
+        <!-- RIGHT: Slide-in Profile Card -->
+        <div class="profile-card-wrap" id="profileCard">
+            <div class="profile-card">
+
+                <!-- Top accent bar -->
+                <div class="profile-card-accent"></div>
+
+                <!-- Avatar + rating -->
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar-ring">
+                        <img src="{{ url_for('static', filename='player.png') }}"
+                             class="profile-avatar-img"
+                             alt="{{ player[1] }}"
+                             onerror="this.style.display='none'; this.nextSibling.style.display='flex';">
+                        <div class="profile-avatar-fallback">{{ player[1][0] }}</div>
+                    </div>
+                    <div class="profile-rating-badge">
+                        <span class="rating-num">92</span>
+                        <span class="rating-label">OVR</span>
+                    </div>
+                </div>
+
+                <!-- Name & position -->
+                <h1 class="profile-name">{{ player[1] }}</h1>
+                <div class="profile-position-pill">{{ player[3] }}</div>
+
+                <!-- Stats -->
+                <div class="profile-stats-grid">
+                    <div class="profile-stat">
+                        <span class="ps-icon">🎂</span>
+                        <span class="ps-val">{{ player[2] }}</span>
+                        <span class="ps-label">Age</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="ps-icon">🏟️</span>
+                        <span class="ps-val">{{ player[3] }}</span>
+                        <span class="ps-label">Position</span>
+                    </div>
+                    <div class="profile-stat ps-full">
+                        <span class="ps-icon">📞</span>
+                        <span class="ps-val">{{ player[4] }}</span>
+                        <span class="ps-label">Contact</span>
+                    </div>
+                </div>
+
+                <!-- Skill bars (visual, non-data) -->
+                <div class="skill-bars">
+                    <div class="skill-bar-row">
+                        <span class="skill-label">Speed</span>
+                        <div class="skill-track"><div class="skill-fill" style="--w:82%"></div></div>
+                        <span class="skill-num">82</span>
+                    </div>
+                    <div class="skill-bar-row">
+                        <span class="skill-label">Shooting</span>
+                        <div class="skill-track"><div class="skill-fill" style="--w:88%"></div></div>
+                        <span class="skill-num">88</span>
+                    </div>
+                    <div class="skill-bar-row">
+                        <span class="skill-label">Passing</span>
+                        <div class="skill-track"><div class="skill-fill" style="--w:75%"></div></div>
+                        <span class="skill-num">75</span>
+                    </div>
+                    <div class="skill-bar-row">
+                        <span class="skill-label">Defense</span>
+                        <div class="skill-track"><div class="skill-fill" style="--w:70%"></div></div>
+                        <span class="skill-num">70</span>
+                    </div>
+                </div>
+
+                <!-- Video / CTA -->
+                {% if player[5] %}
+                <a href="{{ player[5] }}" target="_blank" class="profile-video-btn">
+                    <span class="play-icon">▶</span>
+                    <span>Watch Highlights</span>
+                </a>
+                {% else %}
+                <div class="no-video-msg">No highlight video available</div>
+                {% endif %}
+
+                <a href="/players" class="profile-back-link">← Back to all players</a>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // ── FIFA-STYLE SEQUENCED INTRO ANIMATION ──
+        // Timeline:
+        //   0ms   → page fades in (CSS)
+        //   100ms → glow ring pulses in
+        //   300ms → player figure fades + zooms in from left
+        //   500ms → position tag slides up
+        //   550ms → card slides in from RIGHT
+        //   800ms → background name drifts in
+        //   900ms → skill bars fill
+
+        window.addEventListener('load', () => {
+            const glowRing    = document.getElementById('glowRing');
+            const playerFig   = document.getElementById('playerFigure');
+            const posTag      = document.getElementById('posTag');
+            const card        = document.getElementById('profileCard');
+            const bgName      = document.getElementById('bgName');
+            const skillFills  = document.querySelectorAll('.skill-fill');
+
+            setTimeout(() => glowRing.classList.add('ring-visible'),    100);
+            setTimeout(() => playerFig.classList.add('figure-visible'), 300);
+            setTimeout(() => posTag.classList.add('postag-visible'),     500);
+            setTimeout(() => card.classList.add('card-slide-in'),        550);
+            setTimeout(() => bgName.classList.add('bgname-visible'),     800);
+            setTimeout(() => {
+                skillFills.forEach((bar, i) => {
+                    setTimeout(() => bar.classList.add('bar-fill'), i * 120);
+                });
+            }, 900);
+
+            document.body.classList.add('loaded');
+        });
+    </script>
 </body>
 </html>
