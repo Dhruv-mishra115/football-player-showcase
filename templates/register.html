@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Register Player — PlayerShowcase</title>
+    <title>Register Player - PlayerShowcase</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -9,56 +9,36 @@
 </head>
 <body class="register-page">
 
-    <!-- FULLSCREEN ANIMATED BACKGROUND — pure CSS, no external video needed.
-         If you have a local video, replace this block with the video-bg-wrapper below:
-
-         <div class="video-bg-wrapper">
-           <video class="bg-video" autoplay muted loop playsinline>
-             <source src="{{ url_for('static', filename='football-bg.mp4') }}" type="video/mp4">
-           </video>
-           <div class="video-overlay"></div>
-         </div>
-    -->
     <div class="reg-animated-bg">
-        <!-- Stadium-style light rays -->
         <div class="reg-ray ray1"></div>
         <div class="reg-ray ray2"></div>
         <div class="reg-ray ray3"></div>
         <div class="reg-ray ray4"></div>
         <div class="reg-ray ray5"></div>
 
-        <!-- Pitch pattern overlay -->
         <svg class="reg-pitch-svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <!-- Grass stripes -->
-            <rect x="0" y="0" width="1400" height="900" fill="none"/>
             <rect x="100" y="60" width="1200" height="780" fill="none" stroke="rgba(0,200,80,0.12)" stroke-width="2.5"/>
             <line x1="700" y1="60" x2="700" y2="840" stroke="rgba(0,200,80,0.10)" stroke-width="2"/>
             <circle cx="700" cy="450" r="130" fill="none" stroke="rgba(0,200,80,0.10)" stroke-width="2"/>
             <circle cx="700" cy="450" r="6" fill="rgba(0,200,80,0.2)"/>
-            <!-- Penalty areas -->
             <rect x="100" y="265" width="200" height="330" fill="none" stroke="rgba(0,200,80,0.08)" stroke-width="2"/>
             <rect x="1100" y="265" width="200" height="330" fill="none" stroke="rgba(0,200,80,0.08)" stroke-width="2"/>
         </svg>
 
-        <!-- Floating glows -->
         <div class="reg-glow g1"></div>
         <div class="reg-glow g2"></div>
-
-        <!-- Dark overlay for readability -->
         <div class="reg-dark-overlay"></div>
     </div>
 
-    <!-- Particles -->
     <div class="particles">
         <span></span><span></span><span></span><span></span><span></span>
         <span></span>
     </div>
 
-    <!-- NAVBAR -->
     <nav class="navbar navbar-minimal">
         <div class="nav-brand">
             <a href="/" class="nav-brand-link">
-                <span class="ball-icon">⚽</span>
+                <span class="ball-icon">PS</span>
                 <span class="brand-text">Player<strong>Showcase</strong></span>
             </a>
         </div>
@@ -67,22 +47,18 @@
         </div>
     </nav>
 
-    <!-- REGISTER FORM -->
     <main class="register-main">
-        <div class="glass-form-wrap">
-
-            <!-- Left panel: branding -->
+        <div class="glass-form-wrap register-card-wrap">
             <div class="form-left">
-                <div class="form-left-tag">🏆 Join the Elite</div>
+                <div class="form-left-tag">Join the elite</div>
                 <h2 class="form-left-title">Register<br>Your Profile</h2>
-                <p class="form-left-sub">Get discovered by top clubs, scouts and academies worldwide.</p>
+                <p class="form-left-sub">Build a polished player card for scouts, clubs, and academies browsing the platform.</p>
                 <ul class="form-perks">
                     <li><span class="perk-dot"></span> Free player profile creation</li>
                     <li><span class="perk-dot"></span> Video highlights showcase</li>
                     <li><span class="perk-dot"></span> Direct scout connection</li>
                     <li><span class="perk-dot"></span> Global club network access</li>
                 </ul>
-                <!-- Decorative mini pitch lines -->
                 <div class="form-left-deco">
                     <svg viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="5" y="5" width="190" height="110" rx="4" stroke="rgba(0,230,118,0.2)" stroke-width="1.5"/>
@@ -93,13 +69,17 @@
                 </div>
             </div>
 
-            <!-- Right panel: form -->
             <div class="form-right">
+                <div class="register-form-header">
+                    <h3 class="auth-form-title">Player Details</h3>
+                    <p class="auth-form-sub">Complete the essentials scouts need to assess your profile.</p>
+                </div>
+
                 <form method="POST" action="/register" class="player-form" id="registerForm">
                     <div class="form-group">
                         <label>Full Name</label>
                         <div class="input-wrap">
-                            <span class="input-icon">👤</span>
+                            <span class="input-icon">Name</span>
                             <input type="text" name="name" placeholder="e.g. Carlos Santos" required autocomplete="off">
                         </div>
                     </div>
@@ -107,14 +87,14 @@
                         <div class="form-group">
                             <label>Age</label>
                             <div class="input-wrap">
-                                <span class="input-icon">🎂</span>
+                                <span class="input-icon">Age</span>
                                 <input type="number" name="age" placeholder="22" required min="14" max="45">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Position</label>
                             <div class="input-wrap">
-                                <span class="input-icon">⚽</span>
+                                <span class="input-icon">Role</span>
                                 <input type="text" name="position" placeholder="e.g. Striker" required autocomplete="off">
                             </div>
                         </div>
@@ -122,14 +102,14 @@
                     <div class="form-group">
                         <label>Contact</label>
                         <div class="input-wrap">
-                            <span class="input-icon">📞</span>
+                            <span class="input-icon">Info</span>
                             <input type="text" name="contact" placeholder="Email or phone" required autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Highlight Video Link <span class="optional">(optional)</span></label>
                         <div class="input-wrap">
-                            <span class="input-icon">🎬</span>
+                            <span class="input-icon">Link</span>
                             <input type="text" name="video" placeholder="YouTube / Drive link">
                         </div>
                     </div>
@@ -143,16 +123,14 @@
     </main>
 
     <script>
-        // Focus glow on inputs
         document.querySelectorAll('.input-wrap input').forEach(inp => {
             inp.addEventListener('focus',  () => inp.closest('.input-wrap').classList.add('focused'));
             inp.addEventListener('blur',   () => inp.closest('.input-wrap').classList.remove('focused'));
         });
 
-        // Submit loading state
         document.getElementById('registerForm').addEventListener('submit', function() {
             const btn = document.getElementById('submitBtn');
-            btn.innerHTML = '<span>Registering…</span>';
+            btn.innerHTML = '<span>Registering...</span>';
             btn.style.opacity = '0.75';
             btn.style.pointerEvents = 'none';
         });

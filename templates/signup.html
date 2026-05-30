@@ -1,5 +1,256 @@
-<form method="POST">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <button type="submit">Signup</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create Account — PlayerShowcase</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+
+    <!-- ── ANIMATED BACKGROUND ── -->
+    <div class="auth-bg signup-bg">
+        <div class="auth-bg-base signup-base"></div>
+
+        <!-- Stadium light rays — slightly different tint for signup -->
+        <div class="auth-ray ar1"></div>
+        <div class="auth-ray ar2"></div>
+        <div class="auth-ray ar3"></div>
+        <div class="auth-ray ar4"></div>
+        <div class="auth-ray ar5"></div>
+
+        <!-- Pitch lines SVG -->
+        <svg class="auth-pitch-svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect x="100" y="60"  width="1200" height="780" fill="none" stroke="rgba(0,200,80,0.10)" stroke-width="2"/>
+            <line x1="700" y1="60" x2="700" y2="840"        stroke="rgba(0,200,80,0.08)" stroke-width="1.5"/>
+            <circle cx="700" cy="450" r="130"               fill="none" stroke="rgba(0,200,80,0.08)" stroke-width="2"/>
+            <circle cx="700" cy="450" r="5"                 fill="rgba(0,200,80,0.18)"/>
+            <rect x="100" y="270" width="195" height="320"  fill="none" stroke="rgba(0,200,80,0.06)" stroke-width="1.5"/>
+            <rect x="1105" y="270" width="195" height="320" fill="none" stroke="rgba(0,200,80,0.06)" stroke-width="1.5"/>
+        </svg>
+
+        <!-- Ambient glow orbs -->
+        <div class="auth-orb ao1 ao1-signup"></div>
+        <div class="auth-orb ao2"></div>
+
+        <!-- Dark readability overlay -->
+        <div class="auth-overlay"></div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+    </div>
+
+    <!-- ── MINIMAL NAVBAR ── -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/" class="nav-brand-link">
+                <span class="ball-icon">⚽</span>
+                <span class="brand-text">Player<strong>Showcase</strong></span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="/login" class="nav-btn">Sign In</a>
+        </div>
+    </nav>
+
+    <!-- ── AUTH LAYOUT ── -->
+    <main class="auth-main">
+        <div class="auth-card-wrap">
+
+            <!-- LEFT PANEL: Branding -->
+            <div class="auth-left auth-left-signup">
+
+                <!-- Decorative trophy -->
+                <div class="auth-ball-deco">🏆</div>
+
+                <div class="auth-left-tag auth-left-tag-gold">Join the Platform</div>
+                <h2 class="auth-left-title">Create Your<br>Account<br>Today</h2>
+                <p class="auth-left-sub">
+                    Join thousands of players already getting discovered by scouts and clubs worldwide.
+                </p>
+
+                <ul class="auth-perks">
+                    <li><span class="perk-dot perk-dot-gold"></span> Free to join, always</li>
+                    <li><span class="perk-dot perk-dot-gold"></span> Register player profiles</li>
+                    <li><span class="perk-dot perk-dot-gold"></span> Connect with global clubs</li>
+                    <li><span class="perk-dot perk-dot-gold"></span> Showcase highlight videos</li>
+                </ul>
+
+                <div class="auth-switch-hint">
+                    Already have an account?
+                    <a href="/login" class="auth-switch-link">Sign in →</a>
+                </div>
+
+                <!-- Mini pitch deco -->
+                <div class="auth-pitch-deco">
+                    <svg viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="4" width="192" height="112" rx="4"
+                              stroke="rgba(0,230,118,0.18)" stroke-width="1.5"/>
+                        <line x1="100" y1="4" x2="100" y2="116"
+                              stroke="rgba(0,230,118,0.13)" stroke-width="1"/>
+                        <circle cx="100" cy="60" r="24"
+                              stroke="rgba(0,230,118,0.16)" stroke-width="1.5" fill="none"/>
+                        <circle cx="100" cy="60" r="3" fill="rgba(0,230,118,0.35)"/>
+                        <rect x="4" y="34" width="28" height="52" rx="2"
+                              stroke="rgba(0,230,118,0.1)" stroke-width="1" fill="none"/>
+                        <rect x="168" y="34" width="28" height="52" rx="2"
+                              stroke="rgba(0,230,118,0.1)" stroke-width="1" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: Signup form -->
+            <div class="auth-right">
+
+                <div class="auth-form-header">
+                    <h3 class="auth-form-title">Create Account</h3>
+                    <p class="auth-form-sub">Takes less than a minute — it's completely free</p>
+                </div>
+
+                <!-- Fields match app.py: username, password — POST to /signup -->
+                <form method="POST" action="/signup" class="auth-form" id="signupForm">
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <div class="input-wrap">
+                            <span class="input-icon">👤</span>
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                placeholder="Choose a username"
+                                required
+                                autocomplete="username"
+                                minlength="3">
+                        </div>
+                        <span class="field-hint">At least 3 characters</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrap" id="passwordWrap">
+                            <span class="input-icon">🔒</span>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Create a password"
+                                required
+                                autocomplete="new-password"
+                                minlength="6"
+                                id="signupPassword">
+                            <button type="button" class="pw-toggle" id="pwToggle" title="Show/hide password">
+                                <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <span class="field-hint">At least 6 characters</span>
+                    </div>
+
+                    <!-- Password strength indicator -->
+                    <div class="pw-strength-wrap" id="pwStrengthWrap">
+                        <div class="pw-strength-bar">
+                            <div class="pw-strength-fill" id="pwFill"></div>
+                        </div>
+                        <span class="pw-strength-label" id="pwLabel"></span>
+                    </div>
+
+                    <button type="submit" class="auth-submit-btn auth-submit-btn-signup" id="signupBtn">
+                        <span>Create Account</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2.5">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="8.5" cy="7" r="4"/>
+                            <line x1="20" y1="8" x2="20" y2="14"/>
+                            <line x1="23" y1="11" x2="17" y2="11"/>
+                        </svg>
+                    </button>
+
+                    <p class="auth-terms">
+                        By creating an account you agree to our
+                        <span class="terms-link">Terms of Service</span>.
+                    </p>
+
+                </form>
+
+                <div class="auth-divider">
+                    <span>Already registered?</span>
+                </div>
+
+                <a href="/login" class="auth-alt-btn">
+                    Sign in to your account
+                </a>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ── Focus glow on inputs ──
+        document.querySelectorAll('.input-wrap input').forEach(inp => {
+            inp.addEventListener('focus', () => inp.closest('.input-wrap').classList.add('focused'));
+            inp.addEventListener('blur',  () => inp.closest('.input-wrap').classList.remove('focused'));
+        });
+
+        // ── Password visibility toggle ──
+        const pwToggle = document.getElementById('pwToggle');
+        const pwInput  = document.getElementById('password');
+        const eyeIcon  = document.getElementById('eyeIcon');
+
+        pwToggle.addEventListener('click', () => {
+            const isText = pwInput.type === 'text';
+            pwInput.type = isText ? 'password' : 'text';
+            eyeIcon.innerHTML = isText
+                ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
+                : '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+            pwToggle.style.color = isText ? 'var(--text-faint)' : 'var(--green)';
+        });
+
+        // ── Live password strength indicator ──
+        pwInput.addEventListener('input', function() {
+            const val = this.value;
+            const fill  = document.getElementById('pwFill');
+            const label = document.getElementById('pwLabel');
+
+            let strength = 0;
+            if (val.length >= 6)  strength++;
+            if (val.length >= 10) strength++;
+            if (/[A-Z]/.test(val)) strength++;
+            if (/[0-9]/.test(val)) strength++;
+            if (/[^A-Za-z0-9]/.test(val)) strength++;
+
+            const levels = [
+                { w: '0%',   color: 'transparent',      text: '' },
+                { w: '25%',  color: '#ef4444',           text: 'Weak' },
+                { w: '50%',  color: '#f97316',           text: 'Fair' },
+                { w: '75%',  color: '#eab308',           text: 'Good' },
+                { w: '100%', color: 'var(--green)',      text: 'Strong' },
+                { w: '100%', color: 'var(--green)',      text: 'Strong' },
+            ];
+
+            const lvl = levels[Math.min(strength, 5)];
+            fill.style.width       = val.length > 0 ? lvl.w : '0%';
+            fill.style.background  = lvl.color;
+            fill.style.boxShadow   = strength >= 4 ? '0 0 8px var(--green-glow)' : 'none';
+            label.textContent      = val.length > 0 ? lvl.text : '';
+            label.style.color      = lvl.color;
+        });
+
+        // ── Submit loading state ──
+        document.getElementById('signupForm').addEventListener('submit', function() {
+            const btn = document.getElementById('signupBtn');
+            btn.innerHTML = '<span>Creating account…</span>';
+            btn.style.opacity = '0.7';
+            btn.style.pointerEvents = 'none';
+        });
+    </script>
+
+</body>
+</html>

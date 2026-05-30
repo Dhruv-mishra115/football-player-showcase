@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>All Players — PlayerShowcase</title>
+    <title>All Players - PlayerShowcase</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -9,7 +9,6 @@
 </head>
 <body class="players-page">
 
-    <!-- ANIMATED PITCH BACKGROUND (CSS-only, no external video needed) -->
     <div class="players-bg">
         <div class="pb-gradient"></div>
         <svg class="pb-pitch-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -18,15 +17,7 @@
             <circle cx="600" cy="350" r="110" fill="none" stroke="rgba(0,230,118,0.12)" stroke-width="2"/>
             <circle cx="600" cy="350" r="5" fill="rgba(0,230,118,0.3)"/>
             <rect x="60" y="215" width="165" height="270" fill="none" stroke="rgba(0,230,118,0.09)" stroke-width="1.5"/>
-            <rect x="60" y="283" width="56" height="134" fill="none" stroke="rgba(0,230,118,0.07)" stroke-width="1.5"/>
-            <path d="M225 270 A90 90 0 0 1 225 430" fill="none" stroke="rgba(0,230,118,0.07)" stroke-width="1.5"/>
             <rect x="975" y="215" width="165" height="270" fill="none" stroke="rgba(0,230,118,0.09)" stroke-width="1.5"/>
-            <rect x="1084" y="283" width="56" height="134" fill="none" stroke="rgba(0,230,118,0.07)" stroke-width="1.5"/>
-            <path d="M975 270 A90 90 0 0 0 975 430" fill="none" stroke="rgba(0,230,118,0.07)" stroke-width="1.5"/>
-            <path d="M60 60 A25 25 0 0 0 85 40" fill="none" stroke="rgba(0,230,118,0.1)" stroke-width="1.5"/>
-            <path d="M1115 40 A25 25 0 0 0 1140 65" fill="none" stroke="rgba(0,230,118,0.1)" stroke-width="1.5"/>
-            <path d="M60 635 A25 25 0 0 1 85 660" fill="none" stroke="rgba(0,230,118,0.1)" stroke-width="1.5"/>
-            <path d="M1115 660 A25 25 0 0 1 1140 635" fill="none" stroke="rgba(0,230,118,0.1)" stroke-width="1.5"/>
         </svg>
         <div class="pb-orb pb-orb1"></div>
         <div class="pb-orb pb-orb2"></div>
@@ -34,45 +25,37 @@
         <div class="pb-scanlines"></div>
     </div>
 
-    <!-- Particles -->
     <div class="particles">
         <span></span><span></span><span></span><span></span><span></span>
         <span></span><span></span><span></span>
     </div>
 
-    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-brand">
             <a href="/" class="nav-brand-link">
-                <span class="ball-icon">⚽</span>
+                <span class="ball-icon">PS</span>
                 <span class="brand-text">Player<strong>Showcase</strong></span>
             </a>
         </div>
         <div class="nav-links">
             <a href="/" class="nav-btn">Home</a>
-            <a href="/register" class="nav-btn nav-btn-accent">+ Register</a>
+            <a href="/register" class="nav-btn nav-btn-accent">Register</a>
         </div>
     </nav>
 
-    <!-- PAGE HEADER -->
-    <div class="players-header">
-        <div class="players-header-tag">⚽ Talent Pool</div>
+    <header class="players-header">
+        <div class="players-header-tag">Talent Pool</div>
         <h1 class="players-title">All Players</h1>
-        <p class="players-sub">Browse talent from around the world</p>
+        <p class="players-sub">Browse registered football talent from around the world.</p>
         <div class="players-count-badge" id="playerCount"></div>
-    </div>
+    </header>
 
-    <!-- PLAYERS GRID -->
     <section class="players-grid-section">
         <div class="players-grid" id="playersGrid">
-
             {% for player in players %}
-            <!-- CLICKABLE — links to Flask route /player/<id> -->
             <a href="/player/{{ player[0] }}" class="player-card-link">
                 <div class="player-card" style="--i: {{ loop.index }}">
                     <div class="card-inner">
-
-                        <!-- FRONT -->
                         <div class="card-front">
                             <div class="card-glow"></div>
                             <div class="rating-badge">{{ (85 + loop.index % 12) }}</div>
@@ -88,10 +71,9 @@
 
                             <h3 class="player-name">{{ player[1] }}</h3>
                             <p class="player-pos">{{ player[3] }}</p>
-                            <div class="card-hint">Hover · Click to view profile</div>
+                            <div class="card-hint">View profile</div>
                         </div>
 
-                        <!-- BACK -->
                         <div class="card-back">
                             <div class="card-back-header">
                                 <div class="back-avatar">{{ player[1][0] }}</div>
@@ -116,58 +98,3 @@
                                 </div>
                             </div>
 
-                            <div class="view-profile-btn">View Full Profile →</div>
-
-                            {% if player[5] %}
-                            <div class="has-video-tag">🎬 Highlights Available</div>
-                            {% endif %}
-                        </div>
-
-                    </div>
-                </div>
-            </a>
-            {% else %}
-            <div class="empty-state">
-                <div class="empty-icon">⚽</div>
-                <h3>No players yet</h3>
-                <p>Be the first to register your profile!</p>
-                <a href="/register" class="btn-primary">Register Now →</a>
-            </div>
-            {% endfor %}
-
-        </div>
-    </section>
-
-    <script>
-        // Player count badge
-        const cards = document.querySelectorAll('.player-card-link');
-        const badge = document.getElementById('playerCount');
-        if (badge && cards.length > 0) {
-            badge.textContent = cards.length + ' Player' + (cards.length !== 1 ? 's' : '') + ' Found';
-        }
-
-        // Staggered entrance animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    const i = parseInt(e.target.querySelector('.player-card')?.style.getPropertyValue('--i') || 0);
-                    setTimeout(() => e.target.classList.add('card-visible'), i * 70);
-                    observer.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.05 });
-
-        cards.forEach(c => observer.observe(c));
-
-        // Smooth page-exit transition on card click
-        cards.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                document.body.classList.add('page-exit');
-                setTimeout(() => { window.location.href = href; }, 320);
-            });
-        });
-    </script>
-</body>
-</html>

@@ -1,43 +1,86 @@
-# ⚽ Football Player Showcase Platform
+# Football Player Showcase Platform
 
-## 🚀 Overview
-A full-stack web application built using Flask where football players can register and showcase their profiles, and recruiters can browse player data.
+A web application built using Flask and SQLite that helps football players showcase their talent and connect with clubs, scouts, and recruiters.
 
----
+## Features
 
-## 🛠️ Tech Stack
-- Python (Flask)
-- HTML, CSS
-- SQLite
+* User Signup and Login
+* Session-based Authentication
+* Player Registration
+* Player Profile Management
+* Player Listing Page
+* Individual Player Detail Page
+* Video Showcase Links
+* Responsive Football-Themed UI
 
----
+## Tech Stack
 
-## ✨ Features
-- Player registration form
-- Database storage using SQLite
-- Dynamic player listing
-- Individual player profile pages
-- Clean and responsive UI
+### Frontend
 
----
+* HTML5
+* CSS3
 
-## 📸 Screens
-- Home Page
-- Register Page
-- Players List
-- Profile Page
+### Backend
 
----
+* Flask (Python)
 
-## 🧠 Learning Outcome
-- Built full-stack app using Flask
-- Learned database integration
-- Implemented dynamic routing
-- Improved UI/UX design
+### Database
 
----
+* SQLite3
 
-## ▶️ Run Locally
-```bash
-pip install flask
-python app.py
+## Project Structure
+
+football_platform/
+
+├── app.py
+
+├── database.db
+
+├── requirements.txt
+
+├── static/
+
+│ ├── style.css
+
+│ ├── hero-bg.jpg
+
+│ └── player.jpg
+
+└── templates/
+
+├── home.html
+
+├── login.html
+
+├── signup.html
+
+├── register.html
+
+├── players.html
+
+├── player.html
+
+└── success.html
+
+## How It Works
+
+1. Users create an account.
+2. Users log in using their credentials.
+3. Authenticated users can register football players.
+4. Player information is stored in SQLite.
+5. Clubs and scouts can browse player profiles.
+6. Individual player pages display detailed information and showcase videos.
+
+## Future Improvements
+
+* Profile image uploads
+* Advanced player search and filtering
+* Club accounts
+* Scout dashboards
+* Player statistics tracking
+
+## Author
+
+Dhruv Mishra
+Artificial Intelligence and Data Science
+Jabalpur Engineering College
